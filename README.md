@@ -1,17 +1,18 @@
-# PSModuleTemplate
+# PSSemVer
 
-Add a short description about the module and the project.
+This module introduces a SemVer 2.0.0 compatible class for PowerShell.
 
 ## Prerequisites
 
-List any prerequisites needed to use the module, such as PowerShell versions, additional modules, or permissions.
+No prerequisites.
 
 ## Installation
 
-Provide step-by-step instructions on how to install the module, including any InstallModule commands or manual installation steps.
+To install the module and class run the following command:
 
 ```powershell
-Install-Module -Name YourModuleName
+Install-Module -Name PSSemVer
+Import-Module -Name PSSemVer
 ```
 
 ## Usage
@@ -19,33 +20,60 @@ Install-Module -Name YourModuleName
 Here is a list of example that are typical use cases for the module.
 This section should provide a good overview of the module's capabilities.
 
-### Example 1
-
-Provide examples for typical commands that a user would like to do with the module.
+### Create a new SemVer object
 
 ```powershell
-Import-Module -Name PSModuleTemplate
+$Version = New-PSSemVer -Version 1.0.0
 ```
 
-### Example 2
-
-Provide examples for typical commands that a user would like to do with the module.
+### Create a new SemVer object with pre-release and build metadata
 
 ```powershell
-Import-Module -Name PSModuleTemplate
+$Version = New-PSSemVer -Version 1.0.0 -PreRelease 'alpha' -Build '2020-01-01'
 ```
 
-### Find more examples
+### Create a new SemVer object from a string
 
-To find more examples of how to use the module, please refer to the [examples](examples) folder.
+```powershell
+$Version = New-PSSemVer -Version '1.0.0-alpha+2020-01-01'
+```
 
-Alternatively, you can use the Get-Command -Module 'This module' to find more commands that are available in the module.
-To find examples of each of the commands you can use Get-Help -Examples 'CommandName'.
+### Compare two SemVer objects
 
-## Documentation
+```powershell
+$Version1 = New-PSSemVer -Version 1.0.0
+$Version2 = New-PSSemVer -Version 1.0.1
+$Version1 -lt $Version2
+>_ true
+```
 
-Link to further documentation if available, or describe where in the repository users can find more detailed documentation about
-the module's functions and features.
+### Increment the major version
+
+```powershell
+$Version = New-PSSemVer -Version 1.0.0
+$Version.BumpMajor()
+```
+
+### Increment the minor version
+
+```powershell
+$Version = New-PSSemVer -Version 1.0.0
+$Version.BumpMinor()
+```
+
+### Increment the patch version
+
+```powershell
+$Version = New-PSSemVer -Version 1.0.0
+$Version.BumpPatch()
+```
+
+### Set the pre-release
+
+```powershell
+$Version = New-PSSemVer -Version 1.0.0
+$Version.SetPreRelease('alpha')
+```
 
 ## Contributing
 
@@ -62,6 +90,6 @@ Please see the issues tab on this project and submit a new issue that matches yo
 If you do code, we'd love to have your contributions. Please read the [Contribution guidelines](CONTRIBUTING.md) for more information.
 You can either help by picking up an existing issue or submit a new one if you have an idea for a new feature or improvement.
 
-## Acknowledgements
+## Links
 
-Here is a list of people and projects that helped this project in some way.
+- [Semantic Versioning 2.0.0](https://semver.org/)
