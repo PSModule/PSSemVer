@@ -11,23 +11,12 @@ $TypeAcceleratorsClass = [psobject].Assembly.GetType(
 $ExistingTypeAccelerators = $TypeAcceleratorsClass::Get
 foreach ($Type in $ExportableTypes) {
     if ($Type.FullName -in $ExistingTypeAccelerators.Keys) {
-        $Message = @(
-            "Unable to register type accelerator '$($Type.FullName)'"
-            'Accelerator already exists.'
-        ) -join ' - '
-
-        throw [System.Management.Automation.ErrorRecord]::new(
-            [System.InvalidOperationException]::new($Message),
-            'TypeAcceleratorAlreadyExists',
-            [System.Management.Automation.ErrorCategory]::InvalidOperation,
-            $Type.FullName
-        )
+        Write-Debug "Accelerator already exists [$($Type.FullName)]"
+    } else {
+        $TypeAcceleratorsClass::Add($Type.FullName, $Type)
     }
 }
-# Add type accelerators for every exportable type.
-foreach ($Type in $ExportableTypes) {
-    $TypeAcceleratorsClass::Add($Type.FullName, $Type)
-}
+
 # Remove type accelerators when the module is removed.
 $MyInvocation.MyCommand.ScriptBlock.Module.OnRemove = {
     foreach ($Type in $ExportableTypes) {
