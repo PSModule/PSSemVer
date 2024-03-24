@@ -5,7 +5,7 @@
             Write-Verbose (Get-Module -Name 'PSSemVer' -ListAvailable | Out-String) -Verbose
         }
         It 'The module should be importable' {
-            { Import-Module -Name 'PSSemVer' } | Should -Not -Throw
+            { Import-Module -Name 'PSSemVer' -Verbose } | Should -Not -Throw
         }
     }
 }
