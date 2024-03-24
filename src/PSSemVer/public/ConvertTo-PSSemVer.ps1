@@ -4,7 +4,7 @@
         Converts a version string to a PSSemVer object.
 
         .DESCRIPTION
-        This function takes a version string and converts it to a PSSemVer object.
+        This function takes a version string and converts it to a PSSemVer object. Repo.
 
         .EXAMPLE
         '1.2.3-alpha.1+001' | ConvertTo-SemVer
