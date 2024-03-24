@@ -32,7 +32,7 @@
         [string] $Version
     )
 
-    if ($Version | IsNullOrEmpty) {
+    if ([string]::IsNullOrEmpty($Version)) {
         return New-PSSemVer
     }
 
