@@ -6,7 +6,9 @@
         .DESCRIPTION
         This function takes a version string and converts it to a PSSemVer object. Repo.
 
-        .EXAMPLE Convert a version string to a PSSemVer object.
+        .EXAMPLE
+        Convert a version string to a PSSemVer object.
+        
         '1.2.3-alpha.1+001' | ConvertTo-SemVer
 
         Major         : 1
