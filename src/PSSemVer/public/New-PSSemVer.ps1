@@ -25,7 +25,7 @@
         BuildMetadata : 001
 
         .NOTES
-        Compatible with \[SemVer 2.0.0\](https://www.semver.org/).
+        Compatible with SemVer 2.0.0.
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSUseShouldProcessForStateChangingFunctions', '',
