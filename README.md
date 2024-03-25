@@ -26,7 +26,7 @@ This section should provide a good overview of the module's capabilities.
 $Version = New-PSSemVer -Version 1.0.0
 ```
 
-### Create a new SemVer object with pre-release and build metadata
+### Create a new SemVer object with prerelease and build metadata
 
 ```powershell
 $Version = New-PSSemVer -Version 1.0.0 -PreRelease 'alpha' -Build '2020-01-01'
@@ -68,7 +68,7 @@ $Version = New-PSSemVer -Version 1.0.0
 $Version.BumpPatch()
 ```
 
-### Set the pre-release
+### Set the prerelease
 
 ```powershell
 $Version = New-PSSemVer -Version 1.0.0

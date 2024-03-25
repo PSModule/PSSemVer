@@ -19,10 +19,9 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
+  statuses: write
 
 jobs:
   Process-PSModule:
     uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@v1
     secrets: inherit
-    with:
-      SkipTests: true
