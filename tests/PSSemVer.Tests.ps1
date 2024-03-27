@@ -129,6 +129,20 @@ Describe 'Construct convertion: [Version] to [PSSemVer]' {
     }
 }
 
+Describe "Invalid formats" {
+    It "Throws an error when the version is '1.0.0-beta..1'" {
+        { [PSSemVer]'1.0.0-beta..1' } | Should -Throw
+    }
+
+    It "Throws an error when the version is '1.0.0-beta.!.1'" {
+        { [PSSemVer]'1.0.0-beta.!.1' } | Should -Throw
+    }
+
+    It "Throws an error when the version is '1.0.0-beta!1'" {
+        { [PSSemVer]'1.0.0-beta!1' } | Should -Throw
+    }
+}
+
 Describe 'Class: ToString()' {
     It "Returns '1.2.3'." {
         $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3
