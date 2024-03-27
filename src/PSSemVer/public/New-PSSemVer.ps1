@@ -32,7 +32,7 @@
         Justification = 'Does not change system state, but creates a new object.'
     )]
     [OutputType([PSSemVer])]
-    [CmdletBinding(DefaultParameterSetName = 'String')]
+    [CmdletBinding(DefaultParameterSetName = 'Values')]
     param (
         # The major version.
         [Parameter(ParameterSetName = 'Values')]
@@ -57,16 +57,19 @@
         [string] $BuildMetadata = '',
 
         # The version as a string.
-        [Parameter(ParameterSetName = 'String')]
-        [string] $Version = ''
+        [Parameter(
+            Mandatory,
+            ParameterSetName = 'String'
+        )]
+        [string] $Version
     )
 
     switch ($PSCmdlet.ParameterSetName) {
-        'String' {
-            return [PSSemVer]::New($Version)
-        }
         'Values' {
             return [PSSemVer]::New($Major, $Minor, $Patch, $Prerelease, $BuildMetadata)
+        }
+        'String' {
+            return [PSSemVer]::New($Version)
         }
     }
 }
