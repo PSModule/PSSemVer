@@ -100,11 +100,7 @@
             $this.Prerelease = $Matches[5]
             $this.BuildMetadata = $Matches[6]
         } else {
-            Write-Debug 'Coercion'
-            $sections = $version -split '[-+]', 3
-            $this.Major, $this.Minor, $this.Patch = $sections[0] -split '\.', 3
-            $this.Prerelease = $sections[1]
-            $this.BuildMetadata = $sections[2]
+            throw [ArgumentException]::new('The version string is not a valid SemVer string')
         }
     }
 
