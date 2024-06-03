@@ -36,19 +36,19 @@ Describe 'PSSemVer' {
             $PSSemVer.Prerelease | Should -BeNullOrEmpty
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
-        It "New-PSSemVer -Version '1.2.3' => '1.2.3'" {
-            $PSSemVer = New-PSSemVer -Version '1.2.3'
-            $PSSemVer.Major | Should -Be 1
-            $PSSemVer.Minor | Should -Be 2
-            $PSSemVer.Patch | Should -Be 3
-            $PSSemVer.Prerelease | Should -BeNullOrEmpty
-            $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
-        }
         It "New-PSSemVer -Version '' => '0.0.0'" {
             $PSSemVer = New-PSSemVer -Version ''
             $PSSemVer.Major | Should -Be 0
             $PSSemVer.Minor | Should -Be 0
             $PSSemVer.Patch | Should -Be 0
+            $PSSemVer.Prerelease | Should -BeNullOrEmpty
+            $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
+        }
+        It "New-PSSemVer -Version '1.2.3' => '1.2.3'" {
+            $PSSemVer = New-PSSemVer -Version '1.2.3'
+            $PSSemVer.Major | Should -Be 1
+            $PSSemVer.Minor | Should -Be 2
+            $PSSemVer.Patch | Should -Be 3
             $PSSemVer.Prerelease | Should -BeNullOrEmpty
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
