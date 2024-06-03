@@ -69,6 +69,9 @@
             return [PSSemVer]::New($Major, $Minor, $Patch, $Prerelease, $BuildMetadata)
         }
         'String' {
+            if ([string]::IsNullOrEmptySpace($Version)) {
+                $Version = '0.0.0'
+            }
             return [PSSemVer]::New($Version)
         }
     }
