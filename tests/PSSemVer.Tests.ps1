@@ -36,6 +36,14 @@ Describe 'PSSemVer' {
             $PSSemVer.Prerelease | Should -BeNullOrEmpty
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
+        It "New-PSSemVer -Version '' => '0.0.0'" {
+            $PSSemVer = New-PSSemVer -Version ''
+            $PSSemVer.Major | Should -Be 0
+            $PSSemVer.Minor | Should -Be 0
+            $PSSemVer.Patch | Should -Be 0
+            $PSSemVer.Prerelease | Should -BeNullOrEmpty
+            $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
+        }
         It "New-PSSemVer -Version '1.2.3' => '1.2.3'" {
             $PSSemVer = New-PSSemVer -Version '1.2.3'
             $PSSemVer.Major | Should -Be 1
@@ -402,23 +410,23 @@ Describe 'PSSemVer' {
             $PSSemVer.Prerelease | Should -Be 'alpha.1'
             $PSSemVer.BuildMetadata | Should -Be '001'
         }
-        It "Parses 'v-1.2.3-alpha.1+001' to PSSemVer" {
-            $PSSemVer = [PSSemVer]::Parse('v-1.2.3-alpha.1+001')
+        It "Parses 'v-2.3.4-alpha.2+001' to PSSemVer" {
+            $PSSemVer = [PSSemVer]::Parse('v-2.3.4-alpha.2+001')
             $PSSemVer.Prefix | Should -Be 'v'
-            $PSSemVer.Major | Should -Be 1
-            $PSSemVer.Minor | Should -Be 2
-            $PSSemVer.Patch | Should -Be 3
-            $PSSemVer.Prerelease | Should -Be 'alpha.1'
+            $PSSemVer.Major | Should -Be 2
+            $PSSemVer.Minor | Should -Be 3
+            $PSSemVer.Patch | Should -Be 4
+            $PSSemVer.Prerelease | Should -Be 'alpha.2'
             $PSSemVer.BuildMetadata | Should -Be '001'
         }
-        It "Parses 'v1.2.3-alpha.1+001' to PSSemVer" {
-            $PSSemVer = [PSSemVer]::Parse('v1.2.3-alpha.1+001')
+        It "Parses 'v3.4.5-alpha.3+002' to PSSemVer" {
+            $PSSemVer = [PSSemVer]::Parse('v3.4.5-alpha.3+002')
             $PSSemVer.Prefix | Should -Be 'v'
-            $PSSemVer.Major | Should -Be 1
-            $PSSemVer.Minor | Should -Be 2
-            $PSSemVer.Patch | Should -Be 3
-            $PSSemVer.Prerelease | Should -Be 'alpha.1'
-            $PSSemVer.BuildMetadata | Should -Be '001'
+            $PSSemVer.Major | Should -Be 3
+            $PSSemVer.Minor | Should -Be 4
+            $PSSemVer.Patch | Should -Be 5
+            $PSSemVer.Prerelease | Should -Be 'alpha.3'
+            $PSSemVer.BuildMetadata | Should -Be '002'
         }
         It "Parses 'v10.2.3-alpha.1+001' to PSSemVer" {
             $PSSemVer = [PSSemVer]::Parse('v10.2.3-alpha.1+001')

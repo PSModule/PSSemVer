@@ -61,6 +61,7 @@
             Mandatory,
             ParameterSetName = 'String'
         )]
+        [AllowEmptyString()]
         [string] $Version
     )
 
@@ -69,6 +70,9 @@
             return [PSSemVer]::New($Major, $Minor, $Patch, $Prerelease, $BuildMetadata)
         }
         'String' {
+            if ([string]::IsNullOrEmpty($Version)) {
+                $Version = '0.0.0'
+            }
             return [PSSemVer]::New($Version)
         }
     }
