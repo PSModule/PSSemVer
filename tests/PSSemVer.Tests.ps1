@@ -44,6 +44,14 @@ Describe 'PSSemVer' {
             $PSSemVer.Prerelease | Should -BeNullOrEmpty
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
+        It "New-PSSemVer -Version '' => '0.0.0'" {
+            $PSSemVer = New-PSSemVer -Version ''
+            $PSSemVer.Major | Should -Be 0
+            $PSSemVer.Minor | Should -Be 0
+            $PSSemVer.Patch | Should -Be 0
+            $PSSemVer.Prerelease | Should -BeNullOrEmpty
+            $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
+        }
     }
 
     Describe 'Function: ConvertTo-PSSemVer' {
@@ -138,14 +146,6 @@ Describe 'PSSemVer' {
 
         It "Throws on [PSSemVer]'1.0.0-beta!1'" {
             { [PSSemVer]'1.0.0-beta!1' } | Should -Throw
-        }
-        It "Returns an initial version of '0.0.0' passing empty -Version ''" {
-            $PSSemVer = New-PSSemVer -Version ''
-            $PSSemVer.Major | Should -Be 0
-            $PSSemVer.Minor | Should -Be 0
-            $PSSemVer.Patch | Should -Be 0
-            $PSSemVer.Prerelease | Should -BeNullOrEmpty
-            $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
     }
 
