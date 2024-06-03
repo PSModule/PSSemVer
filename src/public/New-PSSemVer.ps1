@@ -61,6 +61,7 @@
             Mandatory,
             ParameterSetName = 'String'
         )]
+        [AllowEmptyString()]
         [string] $Version
     )
 
