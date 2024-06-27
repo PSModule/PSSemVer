@@ -52,8 +52,8 @@ Describe 'PSSemVer' {
             $PSSemVer.Prerelease | Should -BeNullOrEmpty
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
-        It "New-PSSemVer -Version 1.0.0 -PreRelease 'alpha' -Build '2020-01-01'" {
-            $PSSemVer = New-PSSemVer -Version 1.0.0 -PreRelease 'alpha' -Build '2020-01-01'
+        It "New-PSSemVer -Version '1.0.0' -PreRelease 'alpha' -Build '2020-01-01'" {
+            $PSSemVer = New-PSSemVer -Version '1.0.0' -PreRelease 'alpha' -Build '2020-01-01'
             $PSSemVer.Major | Should -Be 1
             $PSSemVer.Minor | Should -Be 0
             $PSSemVer.Patch | Should -Be 0
