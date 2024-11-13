@@ -44,7 +44,7 @@
             $PSSemVer.BuildMetadata | Should -BeNullOrEmpty
         }
         It "New-PSSemVer -Version '1.0.0' -PreRelease 'alpha' -Build '2020-01-01'" {
-            $PSSemVer = New-PSSemVer -Version '1.0.0' -PreRelease 'alpha' -Build '2020-01-01'
+            $PSSemVer = New-PSSemVer -Version '1.0.0' -Prerelease 'alpha' -Build '2020-01-01'
             $PSSemVer.Major | Should -Be 1
             $PSSemVer.Minor | Should -Be 0
             $PSSemVer.Patch | Should -Be 0
@@ -145,6 +145,18 @@
 
         It "Throws on [PSSemVer]'1.0.0-beta!1'" {
             { [PSSemVer]'1.0.0-beta!1' } | Should -Throw
+        }
+        It "[PSSemVer]'1.2' => '1.2.0'" {
+            $PSSemVer = [PSSemVer]'1.2'
+            $PSSemVer.Major | Should -Be 1
+            $PSSemVer.Minor | Should -Be 2
+            $PSSemVer.Patch | Should -Be 0
+        }
+        It "[PSSemVer]'2' => '2.0.0'" {
+            $PSSemVer = [PSSemVer]'2'
+            $PSSemVer.Major | Should -Be 2
+            $PSSemVer.Minor | Should -Be 0
+            $PSSemVer.Patch | Should -Be 0
         }
     }
 
