@@ -75,7 +75,10 @@
             if ([string]::IsNullOrEmpty($Version)) {
                 $Version = '0.0.0'
             }
-            return [PSSemVer]::New($Version, $Prerelease, $BuildMetadata)
+            $obj = [PSSemVer]::New($Version)
+            $obj.SetBuildMetadata($BuildMetadata)
+            $obj.SetPrerelease($Prerelease)
+            return $obj
         }
     }
 }
