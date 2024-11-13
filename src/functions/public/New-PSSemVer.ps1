@@ -48,11 +48,13 @@
 
         # The prerelease version.
         [Parameter(ParameterSetName = 'Values')]
+        [Parameter(ParameterSetName = 'String')]
         [Alias('PreReleaseLabel')]
         [string] $Prerelease = '',
 
         # The build metadata.
         [Parameter(ParameterSetName = 'Values')]
+        [Parameter(ParameterSetName = 'String')]
         [Alias('Build', 'BuildLabel')]
         [string] $BuildMetadata = '',
 
@@ -73,7 +75,7 @@
             if ([string]::IsNullOrEmpty($Version)) {
                 $Version = '0.0.0'
             }
-            return [PSSemVer]::New($Version)
+            return [PSSemVer]::New($Version, $Prerelease, $BuildMetadata)
         }
     }
 }

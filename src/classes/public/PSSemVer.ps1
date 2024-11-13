@@ -2,7 +2,7 @@
     #region Static properties
     hidden static [string] $PSSemVerPattern = '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)' +
     '(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
-    hidden static [string] $LoosePSSemVerPattern = '^(?:([a-zA-Z]*)-?)?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' +
+    hidden static [string] $LoosePSSemVerPattern = '^(?:([a-zA-Z]*)-?)?(0|[1-9]\d*)(?:\.(0|[1-9]\d*))?(?:\.(0|[1-9]\d*))?' +
     '(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
     #endregion Static properties
 
@@ -108,6 +108,18 @@
         $this.Major = if ($version.Major -lt 0) { 0 } else { $version.Major }
         $this.Minor = if ($version.Minor -lt 0) { 0 } else { $version.Minor }
         $this.Patch = if ($version.Build -lt 0) { 0 } else { $version.Build }
+    }
+
+    PSSemVer([string]$version, [string]$PreReleaseLabel, [string]$BuildLabel) {
+        if ($version -match [PSSemVer]::PSSemVerPattern) {
+            $this.Major = [int]$Matches[1]
+            $this.Minor = [int]$Matches[2]
+            $this.Patch = [int]$Matches[3]
+            $this.Prerelease = $PreReleaseLabel
+            $this.BuildMetadata = $BuildLabel
+        } else {
+            throw [ArgumentException]::new('The version string is not a valid SemVer string')
+        }
     }
     #endregion Constructors
 
