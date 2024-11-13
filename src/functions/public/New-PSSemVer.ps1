@@ -76,8 +76,12 @@
                 $Version = '0.0.0'
             }
             $obj = [PSSemVer]::New($Version)
-            $obj.SetBuildMetadata($BuildMetadata)
-            $obj.SetPrerelease($Prerelease)
+            if ($BuildMetadata) {
+                $obj.SetBuildMetadata($BuildMetadata)
+            }
+            if ($Prerelease) {
+                $obj.SetPrerelease($Prerelease)
+            }
             return $obj
         }
     }
