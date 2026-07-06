@@ -7,6 +7,7 @@ PSSemVer is a PowerShell module that adds a SemVer-compatible class and helper f
 Install the module from the PowerShell Gallery:
 
 ```powershell
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Scope CurrentUser
 Install-PSResource -Name PSSemVer
 Import-Module -Name PSSemVer
 ```
