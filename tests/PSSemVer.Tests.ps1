@@ -1,4 +1,6 @@
-﻿Describe 'PSSemVer' {
+﻿#Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '6.0.0'; MaximumVersion = '6.*'; GUID = 'a699dea5-2c73-4616-a270-1f7abb777e71' }
+
+Describe 'PSSemVer' {
     Describe 'Function: New-PSSemVer' {
         It "'New-PSSemVer -Major 1 -Minor 2 -Patch 3' => '1.2.3'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3
