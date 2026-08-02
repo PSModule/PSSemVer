@@ -7,7 +7,7 @@
         This function takes a version string and converts it to a PSSemVer object.
 
         .EXAMPLE
-        '1.2.3-alpha.1+001' | ConvertTo-SemVer
+        '1.2.3-alpha.1+001' | ConvertTo-PSSemVer
 
         Major         : 1
         Minor         : 2
@@ -17,6 +17,12 @@
 
         .NOTES
         Compatible with SemVer 2.0.0.
+
+        .LINK
+        https://psmodule.io/PSSemVer/Functions/ConvertTo-PSSemVer/
+
+        .LINK
+        https://semver.org/
     #>
     [OutputType([PSSemVer])]
     [CmdletBinding()]
