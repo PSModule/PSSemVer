@@ -7,7 +7,7 @@
         This function creates a new PSSemVer object.
 
         .EXAMPLE
-        New-SemVer -Version '1.2.3-alpha.1+001'
+        New-PSSemVer -Version '1.2.3-alpha.1+001'
 
         Major         : 1
         Minor         : 2
@@ -16,7 +16,7 @@
         BuildMetadata : 001
 
         .EXAMPLE
-        New-SemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1' -BuildMetadata '001'
+        New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1' -BuildMetadata '001'
 
         Major         : 1
         Minor         : 2
@@ -26,6 +26,12 @@
 
         .NOTES
         Compatible with SemVer 2.0.0.
+
+        .LINK
+        https://psmodule.io/PSSemVer/Functions/New-PSSemVer/
+
+        .LINK
+        https://semver.org/
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
         'PSUseShouldProcessForStateChangingFunctions', '',
