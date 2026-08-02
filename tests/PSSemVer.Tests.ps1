@@ -1,4 +1,13 @@
-﻿Describe 'PSSemVer' {
+﻿#Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '6.0.0'; MaximumVersion = '6.*' }
+
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    'PSUseDeclaredVarsMoreThanAssignments', '',
+    Justification = 'Required for Pester tests'
+)]
+[CmdletBinding()]
+param()
+
+Describe 'PSSemVer' {
     Describe 'Function: New-PSSemVer' {
         It "'New-PSSemVer -Major 1 -Minor 2 -Patch 3' => '1.2.3'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3
@@ -163,22 +172,18 @@
     Describe 'Class: ToString()' {
         It "New-PSSemVer -Major 1 -Minor 2 -Patch 3 => '1.2.3'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3
-            Write-Verbose ($PSSemVer.ToString()) -Verbose
             $PSSemVer.ToString() | Should -Be '1.2.3'
         }
         It "New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1' -Build '001' => '1.2.3-alpha.1+001'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1' -Build '001'
-            Write-Verbose ($PSSemVer.ToString())
             $PSSemVer.ToString() | Should -Be '1.2.3-alpha.1+001'
         }
         It "New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1' => '1.2.3-alpha.1'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Prerelease 'alpha.1'
-            Write-Verbose ($PSSemVer.ToString())
             $PSSemVer.ToString() | Should -Be '1.2.3-alpha.1'
         }
         It "New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Build '001' => '1.2.3+001'" {
             $PSSemVer = New-PSSemVer -Major 1 -Minor 2 -Patch 3 -Build '001'
-            Write-Verbose ($PSSemVer.ToString())
             $PSSemVer.ToString() | Should -Be '1.2.3+001'
         }
     }
