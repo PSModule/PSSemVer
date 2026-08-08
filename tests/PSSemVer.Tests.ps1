@@ -311,6 +311,50 @@ Describe 'PSSemVer' {
     }
 
     Describe 'Class: Comparison' {
+        Context 'Type guard' {
+            It 'CompareTo throws on a value that cannot be a version' {
+                { ([PSSemVer]'1.0.0').CompareTo([guid]::NewGuid()) } | Should -Throw
+            }
+            It 'CompareTo throws on a hashtable that has no version properties' {
+                { ([PSSemVer]'1.0.0').CompareTo(@{ Foo = 'bar' }) } | Should -Throw
+            }
+            It 'CompareTo accepts a hashtable that describes a version' {
+                # PowerShell converts a property-shaped hashtable to a class instance. That is a real
+                # conversion, unlike the old behaviour of reading absent properties off any object.
+                ([PSSemVer]'1.0.0').CompareTo(@{ Major = 9; Minor = 0; Patch = 0 }) | Should -BeLessThan 0
+            }
+            It 'CompareTo throws on a garbage string' {
+                { ([PSSemVer]'1.0.0').CompareTo('not-a-version') } | Should -Throw
+            }
+            It 'CompareTo sorts $null before any version' {
+                ([PSSemVer]'1.0.0').CompareTo($null) | Should -Be 1
+            }
+            It 'CompareTo still accepts a convertible version string' {
+                ([PSSemVer]'1.0.0').CompareTo('1.0.1') | Should -BeLessThan 0
+            }
+            It 'Equals returns false for a value that cannot be a version' {
+                ([PSSemVer]'1.0.0').Equals([guid]::NewGuid()) | Should -BeFalse
+            }
+            It 'Equals returns false for a garbage string' {
+                ([PSSemVer]'1.0.0').Equals('not-a-version') | Should -BeFalse
+            }
+            It 'Equals returns false for $null' {
+                ([PSSemVer]'1.0.0').Equals($null) | Should -BeFalse
+            }
+            It '-eq against an equal version string still returns true' {
+                [PSSemVer]'1.0.0' -eq '1.0.0' | Should -BeTrue
+            }
+            It '-eq against a different version string returns false' {
+                [PSSemVer]'1.0.0' -eq '1.0.1' | Should -BeFalse
+            }
+            It '-lt against a version string still compares' {
+                [PSSemVer]'1.0.0' -lt '1.0.1' | Should -BeTrue
+            }
+            It 'Sort-Object still orders PSSemVer objects' {
+                $sorted = @([PSSemVer]'1.0.0', [PSSemVer]'0.9.0') | Sort-Object
+                $sorted[0].ToString() | Should -Be '0.9.0'
+            }
+        }
         It "'1.2.3' < '1.2.4'" {
             $PSSemVer1 = [PSSemVer]::Parse('1.2.3')
             $PSSemVer2 = [PSSemVer]::Parse('1.2.4')

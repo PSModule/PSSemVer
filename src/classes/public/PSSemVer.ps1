@@ -172,38 +172,45 @@
     }
 
     [int] CompareTo([Object]$other) {
-        if (-not $other -is [PSSemVer]) {
+        # A null comparand sorts before any value, per the IComparable convention.
+        if ($null -eq $other) {
+            return 1
+        }
+        # PowerShell converts the right-hand operand for -lt/-gt and Sort-Object, but a direct
+        # CompareTo call can pass anything, so convert here as well and reject what cannot be a version.
+        $comparand = $other -as [PSSemVer]
+        if ($null -eq $comparand) {
             throw [ArgumentException]::new('The argument must be of type PSSemVer')
         }
-        if ($this.Major -lt $other.Major) {
+        if ($this.Major -lt $comparand.Major) {
             return -1
         }
-        if ($this.Major -gt $other.Major) {
+        if ($this.Major -gt $comparand.Major) {
             return 1
         }
-        if ($this.Minor -lt $other.Minor) {
+        if ($this.Minor -lt $comparand.Minor) {
             return -1
         }
-        if ($this.Minor -gt $other.Minor) {
+        if ($this.Minor -gt $comparand.Minor) {
             return 1
         }
-        if ($this.Patch -lt $other.Patch) {
+        if ($this.Patch -lt $comparand.Patch) {
             return -1
         }
-        if ($this.Patch -gt $other.Patch) {
+        if ($this.Patch -gt $comparand.Patch) {
             return 1
         }
-        if ([string]::IsNullOrEmpty($this.Prerelease) -and [string]::IsNullOrEmpty($other.Prerelease)) {
+        if ([string]::IsNullOrEmpty($this.Prerelease) -and [string]::IsNullOrEmpty($comparand.Prerelease)) {
             return 0
         }
         if ([string]::IsNullOrEmpty($this.Prerelease)) {
             return 1
         }
-        if ([string]::IsNullOrEmpty($other.Prerelease)) {
+        if ([string]::IsNullOrEmpty($comparand.Prerelease)) {
             return -1
         }
         $thisPrereleaseArray = ($this.Prerelease -split '\.')
-        $otherPrereleaseArray = ($other.Prerelease -split '\.')
+        $otherPrereleaseArray = ($comparand.Prerelease -split '\.')
         for ($i = 0; $i -lt [Math]::Max($thisPrereleaseArray.Length, $otherPrereleaseArray.Length); $i++) {
             if ($i -ge $thisPrereleaseArray.Length) {
                 return -1
@@ -230,22 +237,29 @@
     }
 
     [bool] Equals([Object]$other) {
-        if (-not $other -is [PSSemVer]) {
+        # PowerShell does not convert the right-hand operand for -eq, so an unconverted value
+        # arrives here. Convert it so -eq against a version string keeps working, and treat
+        # anything that is not a version as simply not equal rather than comparing absent properties.
+        if ($null -eq $other) {
             return $false
         }
-        if ($this.Major -ne $other.Major) {
+        $comparand = $other -as [PSSemVer]
+        if ($null -eq $comparand) {
             return $false
         }
-        if ($this.Minor -ne $other.Minor) {
+        if ($this.Major -ne $comparand.Major) {
             return $false
         }
-        if ($this.Patch -ne $other.Patch) {
+        if ($this.Minor -ne $comparand.Minor) {
             return $false
         }
-        if ($this.Prerelease -ne $other.Prerelease) {
+        if ($this.Patch -ne $comparand.Patch) {
             return $false
         }
-        if ($this.BuildMetadata -ne $other.BuildMetadata) {
+        if ($this.Prerelease -ne $comparand.Prerelease) {
+            return $false
+        }
+        if ($this.BuildMetadata -ne $comparand.BuildMetadata) {
             return $false
         }
         return $true
