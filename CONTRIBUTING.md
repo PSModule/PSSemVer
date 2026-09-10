@@ -6,7 +6,7 @@ Read [`AGENTS.md`](AGENTS.md) first for the full guidance chain and documentatio
 ## Before you start
 
 1. Read [`README.md`](README.md) to understand what the module does.
-2. Familiarise yourself with the [repository defaults](https://psmodule.github.io/docs/Modules/Repository-Defaults/) that this repository must satisfy.
+2. Familiarise yourself with the [repository defaults](https://psmodule.io/Process-PSModule/) that this repository must satisfy.
 3. Check the open issues and pull requests to avoid duplicate work.
 
 ## Workflow
@@ -36,7 +36,7 @@ Follow the [issue format](https://msxorg.github.io/docs/Ways-of-Working/Issue-Fo
 
 ## Code standards
 
-PowerShell in this module follows the [PSModule Standards](https://psmodule.github.io/docs/Modules/Standards/) and the
+PowerShell in this module follows the [PSModule Standards](https://psmodule.io/Process-PSModule/) and the
 [MSXOrg Coding Standards](https://msxorg.github.io/docs/Coding-Standards/).
 
 ## Questions
